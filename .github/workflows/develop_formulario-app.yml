@@ -21,8 +21,10 @@ jobs:
     - name: Install dependencies
       run: npm ci
     
-    - name: Build with webpack
-      run: npm run build    
+    - name: Build and package
+        run: |
+          npm run build
+          zip -r deployment.zip ./dist
     
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2

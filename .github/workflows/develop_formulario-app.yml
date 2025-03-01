@@ -1,4 +1,4 @@
-name: Deploy to Azure Web App
+ame: Deploy to Azure Web App (Linux)
 
 on:
   push:
@@ -16,19 +16,36 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '22'
+        node-version: '16.x'
     
     - name: Install dependencies
       run: npm ci
     
     - name: Build with webpack
       run: npm run build
-          
+      
+    - name: Prepare deployment package
+      run: |
+        # Create a package.json in the dist folder
+        cat > ./dist/package.json << 'EOL'
+{
+  "name": "static-app",
+  "version": "1.0.0",
+  "description": "Static web app",
+  "scripts": {
+    "start": "npx serve -s"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+}
+
+EOL
+        ls -la ./dist/
     
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ./dist    
-    
+        package: ./dist

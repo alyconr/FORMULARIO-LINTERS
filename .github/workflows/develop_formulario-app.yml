@@ -3,7 +3,7 @@ name: Deploy to Azure Linux App Service
 on:
   push:
     branches:
-      - develop
+      - main
   workflow_dispatch:
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '22'
+        node-version: '16.x'
         cache: 'npm'
     
     - name: Install dependencies
@@ -24,6 +24,16 @@ jobs:
     
     - name: Build with webpack
       run: npm run build
+    
+    - name: Prepare deployment
+      run: |
+        # Copy necessary files to dist folder
+        cp server.js dist/
+        cp package.json dist/
+        
+        # Install production dependencies in dist folder
+        cd dist
+        npm ci --only=production
     
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2

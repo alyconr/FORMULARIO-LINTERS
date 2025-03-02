@@ -33,7 +33,7 @@ jobs:
         
         # Install production dependencies in dist folder
         cd dist
-        npm ci --only=production
+        npm ci 
     
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2

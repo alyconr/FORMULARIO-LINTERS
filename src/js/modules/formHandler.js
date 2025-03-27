@@ -9,11 +9,24 @@ export default function setupFormHandler() {
     const email = document.getElementById('email').value;
     const age = document.getElementById('number').value;
     const dropdown = document.getElementById('dropdown').value;
-    const radioButtons = document.querySelectorAll('input[name="choice"]:checked');
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const radioButtons = document.querySelectorAll(
+      'input[name="choice"]:checked',
+    );
+    const checkboxes = document.querySelectorAll(
+      'input[type="checkbox"]:checked',
+    );
     const comments = document.getElementById('comments').value;
 
-    if (name && email && age && dropdown && radioButtons && checkboxes.length > 0 && comments) {
+    if (
+      name
+      && email
+      && age
+      && dropdown
+      && radioButtons
+      && checkboxes.length > 0
+      && comments
+    ) {
+      // if (name && email && age && dropdown && radioButtons && checkboxes.length > 0)
       messageContainer.textContent = 'FORMULARIO ENVIADO CON ÉXITO';
       messageContainer.style.color = 'green'; // Estilo para el mensaje de éxito
       form.reset(); // Opcional: Resetea el formulario después de enviarlo
@@ -23,3 +36,5 @@ export default function setupFormHandler() {
     }
   });
 }
+
+

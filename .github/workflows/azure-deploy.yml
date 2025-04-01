@@ -3,7 +3,7 @@ name: Build and Deploy to Azure VM
 on:
   push:
     branches:
-      - develop  # adjust if you deploy from a different branch
+      - develop  # adjust if you deploy from a different branch v1
 
 jobs:
   build-and-deploy:
